@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GrofersDemo</string>
+    <string name="settings">Settings</string>
 </resources>

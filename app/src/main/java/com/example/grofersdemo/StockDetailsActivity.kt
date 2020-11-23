@@ -3,6 +3,9 @@ package com.example.grofersdemo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.StrictMode
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -36,5 +39,26 @@ class StockDetailsActivity : AppCompatActivity() {
         )
 
         StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder().penaltyDeath().build())
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu_stock_details_screen, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.settings_screen -> {
+                launchSettings()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    fun launchSettings() {
+
     }
 }
