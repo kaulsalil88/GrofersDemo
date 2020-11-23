@@ -1,23 +1,38 @@
 package com.example.grofersdemo
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.StrictMode
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.grofersdemo.viewmodels.StockPriceViewModel
 
 class StockDetailsActivity : AppCompatActivity() {
 
+    val TAG = StockDetailsActivity::class.java.name
     lateinit var stockPriceViewModel: StockPriceViewModel
+    private val SETTINGS_ACTIVITY_REQUEST_CODE = 100
+
+
+    private val openSettingActivityLauncher =
+        registerForActivityResult(SettingsActivityContract()) {
+            it.apply {
+                Toast.makeText(this@StockDetailsActivity, it, Toast.LENGTH_LONG).show()
+            }
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //checkWithStrictMode()
         setContentView(R.layout.activity_stock_details)
+        title = getString(R.string.stock_details)
         stockPriceViewModel = ViewModelProviders.of(this)[StockPriceViewModel::class.java]
         setUpObservers()
         stockPriceViewModel.getStockDetails()
@@ -58,7 +73,14 @@ class StockDetailsActivity : AppCompatActivity() {
         }
     }
 
-    fun launchSettings() {
+    private fun launchSettings() {
+        openSettingActivityLauncher.launch(Unit)
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if ((requestCode == SETTINGS_ACTIVITY_REQUEST_CODE) && (resultCode == Activity.RESULT_OK)) {
+            Log.d(TAG, "onActivity Result")
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }

@@ -20,22 +20,21 @@ class StockPriceViewModel : ViewModel() {
     private val TAG = StockPriceViewModel::class.java.name
 
 
-
     private val _stockApiResponse = MutableLiveData<StockApiDetails>()
 
     val result: LiveData<StockApiDetails> get() = _stockApiResponse
 
     private val _status = MutableLiveData<ApiStatus>()
-     val status:LiveData<ApiStatus> get() = _status
+    val status: LiveData<ApiStatus> get() = _status
     private var viewModelJob = Job()
 
     // the Coroutine runs using the Main (UI) dispatcher
     //ToDo:Correct the coroutine behaviour
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    fun getStockDetails() {
+    fun getStockDetails(stockSymbol: String = "GOOG") {
         coroutineScope.launch {
-            val deferred = StockApiService.retrofitService.getStockDetails("IBM")
+            val deferred = StockApiService.retrofitService.getStockDetails(stockSymbol)
             try {
                 _status.value = ApiStatus.LOADING
                 _stockApiResponse.value = deferred.await()
