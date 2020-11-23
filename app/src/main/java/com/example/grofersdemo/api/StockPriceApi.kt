@@ -12,6 +12,7 @@ import retrofit2.http.Query
 
 private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
+//val interceptor =
 private const val BASE_URL = "https://www.alphavantage.co/"
 private val retrofit = Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi))
     .addCallAdapterFactory(CoroutineCallAdapterFactory()).baseUrl(BASE_URL).build()

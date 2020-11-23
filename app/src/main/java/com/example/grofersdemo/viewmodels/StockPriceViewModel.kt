@@ -20,23 +20,6 @@ class StockPriceViewModel : ViewModel() {
     private val TAG = StockPriceViewModel::class.java.name
 
 
-    //
-    //    fun getRepositories() {
-    //        coroutineScope.launch {
-    //            val deffered = GitHubApiService.retrofitService.getPopularAndroidRepoAsync()
-    //            try {
-    //                _status.value = GitApiStatus.LOADING
-    //                _result.value = deffered.await()
-    //                Log.e("MainViewModel", "Success" + result.value?.size)
-    //                _status.value = GitApiStatus.DONE
-    //
-    //            } catch (ex: Exception) {
-    //                _status.value = GitApiStatus.ERROR
-    //                Log.e("MainViewModel", "Failure" + ex.localizedMessage)
-    //            }
-    //
-    //        }
-    //    }
 
     private val _stockApiResponse = MutableLiveData<StockApiDetails>()
 
@@ -47,6 +30,7 @@ class StockPriceViewModel : ViewModel() {
     private var viewModelJob = Job()
 
     // the Coroutine runs using the Main (UI) dispatcher
+    //ToDo:Correct the coroutine behaviour
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     fun getStockDetails() {
