@@ -1,6 +1,6 @@
 package com.example.grofersdemo.api
 
-import com.example.grofersdemo.models.StockDetails
+import com.example.grofersdemo.models.StockApiDetails
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -30,7 +30,7 @@ private val retrofit = Retrofit.Builder().addConverterFactory(MoshiConverterFact
 //API KEY 0D2ZREIKANHDZGFR
 interface StockApi{
     @GET("query?function=TIME_SERIES_DAILY&apikey=0D2ZREIKANHDZGFR")
-    fun getStockDetails(@Query("symbol")stock:String):Deferred<List<StockDetails>>
+    fun getStockDetails(@Query("symbol")stock:String):Deferred<StockApiDetails>
 
 }
 
