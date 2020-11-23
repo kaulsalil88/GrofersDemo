@@ -10,6 +10,8 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.grofersdemo.viewmodels.StockPriceViewModel
@@ -18,13 +20,23 @@ class StockDetailsActivity : AppCompatActivity() {
 
     val TAG = StockDetailsActivity::class.java.name
     lateinit var stockPriceViewModel: StockPriceViewModel
-    private val SETTINGS_ACTIVITY_REQUEST_CODE = 100
 
 
     private val openSettingActivityLauncher =
-        registerForActivityResult(SettingsActivityContract()) {
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             it.apply {
-                Toast.makeText(this@StockDetailsActivity, it, Toast.LENGTH_LONG).show()
+                if (it.resultCode == Activity.RESULT_OK) {
+
+                    Log.d(
+                        TAG,
+                        "First One: ${it.data?.getStringExtra(SettingsActivity.KEY_STOCK_SYMBOL)}"
+                    )
+                    Log.d(
+                        TAG,
+                        "Second One ${it.data?.extras?.getString(SettingsActivity.KEY_STOCK_SYMBOL)
+                            ?: "EMPTY STRING"}"
+                    )
+                }
             }
         }
 
@@ -74,13 +86,11 @@ class StockDetailsActivity : AppCompatActivity() {
     }
 
     private fun launchSettings() {
-        openSettingActivityLauncher.launch(Unit)
+        val startSettingsActivityIntent =
+            Intent(this, SettingsActivity::class.java).setAction("StockDetails")
+        openSettingActivityLauncher.launch(startSettingsActivityIntent)
+
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if ((requestCode == SETTINGS_ACTIVITY_REQUEST_CODE) && (resultCode == Activity.RESULT_OK)) {
-            Log.d(TAG, "onActivity Result")
-        }
-        super.onActivityResult(requestCode, resultCode, data)
-    }
+
 }
