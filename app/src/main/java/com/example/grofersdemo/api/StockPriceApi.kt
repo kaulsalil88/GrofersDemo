@@ -21,13 +21,13 @@ private const val BASE_URL = "https://www.alphavantage.co/"
 //addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
 private val retrofit = Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi))
     .addCallAdapterFactory(CoroutineCallAdapterFactory()).baseUrl(BASE_URL)
-    .client(OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)).build()).build()
+    .client(OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)).build()).build()
 
 
-//API KEY 0D2ZREIKANHDZGFR
+
 interface StockApi {
     @GET("query?function=TIME_SERIES_INTRADAY&interval=5min&apikey=0D2ZREIKANHDZGFR")
-    fun getStockDetails(@Query("symbol") stock: String): Deferred<StockApiDetails>
+    fun getStockDetailsAsync(@Query("symbol") stock: String): Deferred<StockApiDetails>
 
 }
 
