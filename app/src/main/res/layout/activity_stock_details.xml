@@ -3,19 +3,81 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingStart="10dp"
         tools:context=".StockDetailsActivity">
 
         <TextView
+            android:id="@+id/tv_sym"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginTop="16dp"
+            android:text="@string/stock_symbol" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_sym_val"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_open_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/openprice" />
+
+        <TextView
+            android:id="@+id/tv_open_price_val"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_current_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/current_price" />
+
+        <TextView
+            android:id="@+id/tv_open_current_val"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_id_hi_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/highest_intraday" />
+
+        <TextView
+            android:id="@+id/tv_id_hi_val"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+
+            android:id="@+id/tv_id_lo_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/lowest_intraday" />
+
+        <TextView
+            android:id="@+id/tv_id_lo_val"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:textColor="@color/black" />
+
+
+    </LinearLayout>
 </layout>
