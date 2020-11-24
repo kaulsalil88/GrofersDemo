@@ -1,24 +1,26 @@
 package com.example.grofersdemo
 
 import android.app.Activity
-import android.app.PendingIntent
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.StrictMode
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.example.grofersdemo.databinding.ActivityStockDetailsBinding
+import com.example.grofersdemo.models.StockApiDetails
 import com.example.grofersdemo.viewmodels.StockPriceViewModel
 
 class StockDetailsActivity : AppCompatActivity() {
 
     val TAG = StockDetailsActivity::class.java.name
     lateinit var stockPriceViewModel: StockPriceViewModel
+    private lateinit var binding: ActivityStockDetailsBinding
 
 
     private val openSettingActivityLauncher =
@@ -35,15 +37,14 @@ class StockDetailsActivity : AppCompatActivity() {
                             symbol
                         )
                     }
-                    //Make Fresh API Call with New Symbol
+
                 }
             }
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //checkWithStrictMode()
-        setContentView(R.layout.activity_stock_details)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_stock_details)
         title = getString(R.string.stock_details)
         stockPriceViewModel = ViewModelProviders.of(this)[StockPriceViewModel::class.java]
         setUpObservers()
@@ -56,17 +57,11 @@ class StockDetailsActivity : AppCompatActivity() {
         })
 
         stockPriceViewModel.result.observe(this, Observer {
+            setStockValues(it)
 
         })
     }
 
-    fun checkWithStrictMode() {
-        StrictMode.setThreadPolicy(
-            StrictMode.ThreadPolicy.Builder().detectAll().penaltyDeath().build()
-        )
-
-        StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder().penaltyDeath().build())
-    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
@@ -92,7 +87,19 @@ class StockDetailsActivity : AppCompatActivity() {
 
     }
 
-    private fun fetchStockDataAfterAnHour(){
+
+    private fun setStockValues(stockApiDetails: StockApiDetails) {
+       val keys = stockApiDetails.timeToStockDetailsMap?.keys
+       val stockPriceDetails = stockApiDetails.timeToStockDetailsMap?.get(keys?.first())
+
+        binding.tvOpenPriceVal.text = stockPriceDetails?.open.toString()
+        binding.tvIdHiVal.text = stockPriceDetails?.high.toString()
+        binding.tvIdLoVal.text = stockPriceDetails?.low.toString()
+        binding.tvOpenCurrentVal.text = stockPriceDetails?.close.toString()
+        binding.tvSymVal.text = stockApiDetails.stockMetaData?.symbol
+    }
+
+    private fun fetchStockDataAfterAnHour() {
 
     }
 
