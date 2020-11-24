@@ -33,7 +33,7 @@ class StockPriceViewModel : ViewModel() {
 
     fun getStockDetails(stockSymbol: String = "GOOG") {
         coroutineScope.launch {
-            val deferred = StockApiService.retrofitService.getStockDetails(stockSymbol)
+            val deferred = StockApiService.retrofitService.getStockDetailsAsync(stockSymbol)
             try {
                 _status.value = ApiStatus.LOADING
                 _stockApiResponse.value = deferred.await()

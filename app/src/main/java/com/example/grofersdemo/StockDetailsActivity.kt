@@ -29,7 +29,7 @@ class StockDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStockDetailsBinding
 
     //Stock Symbol returned from the  Settings Activity
-    private lateinit var stockSymbol:String
+    private  var stockSymbol:String = "GOOG"
 
     //Receiver to fetch stock details after an hour
     val messageReceiver = object : BroadcastReceiver() {
@@ -41,6 +41,7 @@ class StockDetailsActivity : AppCompatActivity() {
     }
 
 
+    //The API for starting activity for result
     private val openSettingActivityLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             it.apply {
@@ -72,6 +73,7 @@ class StockDetailsActivity : AppCompatActivity() {
         stockPriceViewModel.getStockDetails()
     }
 
+    //Function for observing the viewmodels live data
     fun setUpObservers() {
         stockPriceViewModel.status.observe(this, Observer {
 
@@ -130,11 +132,15 @@ class StockDetailsActivity : AppCompatActivity() {
     }
 
     private fun fetchStockDataAfterAnHour() {
+
         val alarmManager =
             getSystemService(Context.ALARM_SERVICE) as? AlarmManager
 
         val broadCastIntent = Intent()
-        intent.action = ACTION_FETCH_STOCKS_IN_HOUR
+
+        broadCastIntent.action = ACTION_FETCH_STOCKS_IN_HOUR
+        broadCastIntent.setClass(this,StockDetailsActivity::class.java)
+
         val pendingIntent = PendingIntent.getBroadcast(
             this,
             PENDING_INTENT_RESULT_CODE,
@@ -143,7 +149,7 @@ class StockDetailsActivity : AppCompatActivity() {
         )
         alarmManager?.set(
             AlarmManager.ELAPSED_REALTIME_WAKEUP,
-            5000,
+            System.currentTimeMillis()+ 5_000,
             pendingIntent
         )
     }
