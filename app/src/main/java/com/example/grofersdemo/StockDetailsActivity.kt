@@ -31,7 +31,8 @@ import com.example.grofersdemo.viewmodels.StockPriceViewModel
 
 class StockDetailsActivity : AppCompatActivity() {
 
-    private val delayAfterWhichToFetchStocksMs: Long = 60 * 60 * 1000
+    //60 * 60 * 1000
+    private val delayAfterWhichToFetchStocksMs: Long = 1000
 
     val TAG = StockDetailsActivity::class.java.name
     lateinit var stockPriceViewModel: StockPriceViewModel
@@ -104,7 +105,7 @@ class StockDetailsActivity : AppCompatActivity() {
         stockPriceViewModel.result.observe(this, Observer {
             setStockValues(it)
             //fetchStockDataAfterAnHour()
-            fetchStockUsingHandler()
+            //fetchStockUsingHandler()
 
         })
 
