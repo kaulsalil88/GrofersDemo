@@ -25,7 +25,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.tietStockSymbol.onSubmit { submitSymbol() }
     }
 
-    fun TextInputEditText.onSubmit(func: () -> Unit) {
+    private fun TextInputEditText.onSubmit(func: () -> Unit) {
         setOnEditorActionListener { _, actionId, _ ->
 
             if (actionId == EditorInfo.IME_ACTION_DONE) {
