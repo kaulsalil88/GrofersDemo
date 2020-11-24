@@ -17,6 +17,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:singleLine="true"
+                android:inputType="text"
                 android:id="@+id/tiet_stock_symbol"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">

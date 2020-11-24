@@ -4,4 +4,8 @@
     <string name="settings_activity">Settings Activity</string>
     <string name="stock_details">Stock Details</string>
     <string name="fetch_stock_details">Fetch Stock Details</string>
+    <string name="openprice">Open Price</string>
+    <string name="current_price">Current Price</string>
+    <string name="highest_intraday">Highest Intraday</string>
+    <string name="lowest_intraday">Lowest Intraday</string>
 </resources>

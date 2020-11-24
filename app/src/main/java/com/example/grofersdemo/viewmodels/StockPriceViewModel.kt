@@ -53,6 +53,8 @@ class StockPriceViewModel : ViewModel() {
     //In case we need to do any view model related clean up data
     override fun onCleared() {
         super.onCleared()
+        viewModelJob.cancel()
+
     }
 
 }

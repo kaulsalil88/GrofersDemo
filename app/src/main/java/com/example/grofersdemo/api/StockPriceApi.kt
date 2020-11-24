@@ -26,7 +26,7 @@ private val retrofit = Retrofit.Builder().addConverterFactory(MoshiConverterFact
 
 //API KEY 0D2ZREIKANHDZGFR
 interface StockApi {
-    @GET("query?function=TIME_SERIES_DAILY&apikey=0D2ZREIKANHDZGFR")
+    @GET("query?function=TIME_SERIES_INTRADAY&interval=5min&apikey=0D2ZREIKANHDZGFR")
     fun getStockDetails(@Query("symbol") stock: String): Deferred<StockApiDetails>
 
 }

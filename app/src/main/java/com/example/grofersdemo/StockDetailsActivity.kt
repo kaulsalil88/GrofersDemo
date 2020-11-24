@@ -1,6 +1,7 @@
 package com.example.grofersdemo
 
 import android.app.Activity
+import android.app.PendingIntent
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,9 +10,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.grofersdemo.viewmodels.StockPriceViewModel
@@ -31,11 +30,12 @@ class StockDetailsActivity : AppCompatActivity() {
                         TAG,
                         "First One: ${it.data?.getStringExtra(SettingsActivity.KEY_STOCK_SYMBOL)}"
                     )
-                    Log.d(
-                        TAG,
-                        "Second One ${it.data?.extras?.getString(SettingsActivity.KEY_STOCK_SYMBOL)
-                            ?: "EMPTY STRING"}"
-                    )
+                    it.data?.getStringExtra(SettingsActivity.KEY_STOCK_SYMBOL)?.let { symbol ->
+                        stockPriceViewModel.getStockDetails(
+                            symbol
+                        )
+                    }
+                    //Make Fresh API Call with New Symbol
                 }
             }
         }
@@ -78,17 +78,21 @@ class StockDetailsActivity : AppCompatActivity() {
         // Handle item selection
         return when (item.itemId) {
             R.id.settings_screen -> {
-                launchSettings()
+                launchSettingsScreen()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    private fun launchSettings() {
+    private fun launchSettingsScreen() {
         val startSettingsActivityIntent =
             Intent(this, SettingsActivity::class.java).setAction("StockDetails")
         openSettingActivityLauncher.launch(startSettingsActivityIntent)
+
+    }
+
+    private fun fetchStockDataAfterAnHour(){
 
     }
 

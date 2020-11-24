@@ -14,11 +14,12 @@ class SettingsActivity : AppCompatActivity() {
             this,
             R.layout.activity_settings
         )
+        title = getString(R.string.settings_activity)
         binding.btFetchStockDetails.setOnClickListener {
             val stockSymbol = binding.tietStockSymbol.text.toString()
             setResult(Activity.RESULT_OK, Intent().putExtra(KEY_STOCK_SYMBOL,stockSymbol))
+            finish()
         }
-        title = getString(R.string.settings_activity)
     }
 
     companion object {
