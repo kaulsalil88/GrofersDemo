@@ -91,7 +91,6 @@ class StockDetailsActivity : AppCompatActivity() {
     private fun setStockValues(stockApiDetails: StockApiDetails) {
        val keys = stockApiDetails.timeToStockDetailsMap?.keys
        val stockPriceDetails = stockApiDetails.timeToStockDetailsMap?.get(keys?.first())
-
         binding.tvOpenPriceVal.text = stockPriceDetails?.open.toString()
         binding.tvIdHiVal.text = stockPriceDetails?.high.toString()
         binding.tvIdLoVal.text = stockPriceDetails?.low.toString()

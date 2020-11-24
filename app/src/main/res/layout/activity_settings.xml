@@ -17,6 +17,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:hint="@string/enter_stock_symbol"
                 android:singleLine="true"
                 android:inputType="text"
                 android:id="@+id/tiet_stock_symbol"

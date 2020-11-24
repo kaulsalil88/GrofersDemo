@@ -28,8 +28,7 @@ class StockPriceViewModel : ViewModel() {
     val status: LiveData<ApiStatus> get() = _status
     private var viewModelJob = Job()
 
-    // the Coroutine runs using the Main (UI) dispatcher
-    //ToDo:Correct the coroutine behaviour
+
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     fun getStockDetails(stockSymbol: String = "GOOG") {
